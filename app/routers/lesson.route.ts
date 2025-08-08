@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import { createLesson, getAllLesson } from '../controller/lesson.controller';
+import { createLesson, deleteLesson, editLesson, getAllLesson, getSingleLesson } from '../controller/lesson.controller';
 
 const router = Router();
 
 
 //lesson
 router.get('/',getAllLesson);
-// router.get('/lesson/:id',getSingleLesson);
-router.post('/:user_id',createLesson);
-// router.put('/lesson/:id',editLesson);
-// router.delete('/lesson/:id',deleteLesson);
+router.get('/:id',getSingleLesson);
+router.post('/user/:user_id',createLesson);
+router.put('/:user_id/:id',editLesson);
+router.delete('/:id/',deleteLesson);
 
 
 export default router;
