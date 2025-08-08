@@ -7,6 +7,7 @@ export const SignIn = async (req: Request, res: Response) => {
         const user = await authService.SignIn(req.body);
         res.status(200).json({
             message: 'User logged in successfully',
+            _id: user.user._id,
             username: user.user.username,
             email: user.user.email,
             access_token: user.access_token,

@@ -64,8 +64,8 @@ const authService = {
         if (!isMatch) throw new Error('Password is not correct');
         const access_token = authService.generateAccessToken({ id: user._id, username: user.username });
         const refresh_token = authService.generateRefreshToken({ id: user._id, username: user.username });
-        console.log("access_token:", access_token);
-        console.log("refresh_token:", refresh_token);
+        // console.log("access_token:", access_token);
+        // console.log("refresh_token:", refresh_token);
 
         return { user, access_token, refresh_token };
     },

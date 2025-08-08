@@ -5,6 +5,7 @@ import connectDB from '../config/db';
 import path from 'path';
 import authRoutes from './routers/auth.route';
 import lessonRoutes from './routers/lesson.route'
+import userRoutes from './routers/user.route'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -26,6 +27,7 @@ if (!mongoURI) {
 connectDB();
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/lesson', lessonRoutes);
 
 

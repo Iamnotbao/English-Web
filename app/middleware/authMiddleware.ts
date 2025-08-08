@@ -17,10 +17,8 @@ const authMiddleware  =(req : Request, res : Response, next : NextFunction) => {
         }
        (req as any).user = user; 
 
-       res.json({
-            message: "User is authenticated",
-            user
-        });
+      (req as any).user = user
+      next();
     });
 }
 export default authMiddleware;

@@ -16,7 +16,8 @@ const UserSchema: Schema<IUserDocument> = new Schema({
         default: 'student',
     },
     lessons: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lesson' }]
-});
+}, { timestamps: true }
+);
 
 
 UserSchema.pre('save', async function (next) {
@@ -26,10 +27,10 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
-UserSchema.pre<Query<IUser[], IUser>>(/^find/,function(next){
+UserSchema.pre<Query<IUser[], IUser>>(/^find/, function (next) {
     this.populate({
-        path:"lessons",
-        model:"Lesson"
+        path: "lessons",
+        model: "Lesson"
     });
     next();
 })
