@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Query, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/IUser.interface';
 
@@ -15,6 +15,7 @@ const UserSchema: Schema<IUserDocument> = new Schema({
         enum: ['student', 'teacher', 'admin'],
         default: 'student',
     },
+    lessons: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Lesson' }]
 });
 
 
@@ -25,6 +26,13 @@ UserSchema.pre('save', async function (next) {
     next();
 });
 
+UserSchema.pre<Query<IUser[], IUser>>(/^find/,function(next){
+    this.populate({
+        path:"lessons",
+        model:"Lesson"
+    });
+    next();
+})
 UserSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
     const user = this as IUserDocument;
     return bcrypt.compare(candidatePassword, user.password);
