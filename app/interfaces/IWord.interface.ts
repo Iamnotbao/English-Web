@@ -3,4 +3,5 @@ export interface IWord{
     meaning: string;
     example: string;
     explain: string;
+    image_url:string;
 }

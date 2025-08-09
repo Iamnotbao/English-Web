@@ -7,13 +7,15 @@ export interface ILesson extends Document {
     director: Types.ObjectId;  
     rating: number;
     words: IWord[]; 
+    image_url :string;
 }
 
 const WordSchema = new Schema<IWord>({
     word: { type: String, required: true },
     meaning: { type: String, required: true }, 
     example: { type: String },
-    explain: { type: String }
+    explain: { type: String },
+    image_url :{ type: String }
 });
 
 const LessonSchema = new Schema<ILesson>({
@@ -21,6 +23,7 @@ const LessonSchema = new Schema<ILesson>({
     level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], required: true },
     rating: { type: Number, default: 0 },
     director: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    image_url:{type: String, required: true },
     words: [WordSchema],
 }, { timestamps: true });
 
