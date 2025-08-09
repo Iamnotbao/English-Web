@@ -5,6 +5,7 @@ export interface ILesson extends Document {
     name: string;
     level: 'Beginner' | 'Intermediate' | 'Advanced';
     director: Types.ObjectId;  
+    director_name:string;
     rating: number;
     words: IWord[]; 
     image_url :string;
@@ -23,6 +24,7 @@ const LessonSchema = new Schema<ILesson>({
     level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], required: true },
     rating: { type: Number, default: 0 },
     director: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    director_name: {type: String, required: true},
     image_url:{type: String, required: true },
     words: [WordSchema],
 }, { timestamps: true });

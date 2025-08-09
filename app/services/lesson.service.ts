@@ -23,6 +23,7 @@ const LessonService = {
             const lesson = new Lesson({
                 ...lessonData,
                 director: user,
+                director_name: user.username
             })
             await lesson.save();
 
