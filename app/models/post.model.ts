@@ -1,4 +1,4 @@
-import mongoose,{ Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { IPost } from "../interfaces/IPost.interfaces";
 
 const postSchema = new Schema<IPost>({
@@ -9,7 +9,11 @@ const postSchema = new Schema<IPost>({
     image_url: [{ type: String }],
     likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
     comment_count: { type: Number, default: 0 },
-    share_count: { type: Number, default: 0 }
+    share_count: { type: Number, default: 0 },
+    tags: [{
+        type: String,
+        enum: ["Grammar", "Speaking", "Vocabulary", "Listening"]
+    }]
 }, { timestamps: true });
 
 export default mongoose.model<IPost>("Post", postSchema);
