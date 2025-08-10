@@ -6,6 +6,8 @@ import path from 'path';
 import authRoutes from './routers/auth.route';
 import lessonRoutes from './routers/lesson.route'
 import userRoutes from './routers/user.route'
+import postRoutes from './routers/post.route'
+import commentRoutes from './routers/comment.route'
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -29,6 +31,8 @@ connectDB();
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/lesson', lessonRoutes);
+app.use('/api/post',postRoutes );
+app.use('/api/comment',commentRoutes);
 
 
 
