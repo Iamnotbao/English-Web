@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import LessonService from "../services/lesson.service";
+import { uploadToCloudinary } from "../utils/cloudinary.utils";
 
 
 
@@ -39,8 +40,15 @@ export const getSingleLesson = async (req: Request, res: Response) => {
 }
 export const createLesson = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
-    const lessons = req.body;
     try {
+        let lessons = { ...req.body };
+        if (typeof lessons.words === "string") {
+            lessons.words = JSON.parse(lessons.words);
+        }
+        if (req.file) {
+            const imageUrl = await uploadToCloudinary(req.file.buffer);
+            lessons.image_url = imageUrl; 
+        }
         const newLessonList = await LessonService.CreateLesson(user_id, lessons);
         if (newLessonList) {
             return res.status(200).json({
@@ -53,30 +61,30 @@ export const createLesson = async (req: Request, res: Response) => {
 
     }
 }
-export const editLesson = async(req: Request, res : Response)=>{
+export const editLesson = async (req: Request, res: Response) => {
     const id = req.params.id;
-    const user_id= req.params.user_id;
+    const user_id = req.params.user_id;
     const lesson = req.body;
     try {
-        const editLesson = await LessonService.EditLesson(id,user_id,lesson);
-        if(editLesson){
+        const editLesson = await LessonService.EditLesson(id, user_id, lesson);
+        if (editLesson) {
             return res.status(200).json({
-                message:"Edit successfully!",
+                message: "Edit successfully!",
                 editLesson
             })
         }
     } catch (error) {
         console.error(error);
-        
+
     }
 }
-export const deleteLesson =async (req: Request, res: Response) => {
+export const deleteLesson = async (req: Request, res: Response) => {
     const id = req.params.id;
     if (id) {
         try {
             await LessonService.DeleteLesson(id);
             return res.status(204).json({
-                message:"delete successfully!"
+                message: "delete successfully!"
             })
         } catch (error: any) {
             console.log(error);

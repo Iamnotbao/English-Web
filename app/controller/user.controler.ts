@@ -21,3 +21,14 @@ export const GetProfileUser = async (req:Request, res: Response)=>{
         })
     }
 }
+
+export const DeleteLessonByUser = async(req:Request, res: Response)=>{
+    const user_id = req.params.user_id;
+    const lesson_id = req.params.lesson_id;
+    const result= await UserService.DeleteLessonByUser(user_id,lesson_id);
+    if(result){
+        return res.status(204).json({
+            message:"Successfully delete lesson",
+        })
+    }
+}

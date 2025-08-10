@@ -1,17 +1,37 @@
 import User from "../models/user.model"
 export const UserService = {
-    GetListByUser :async(user_id:string)=>{
+    GetListByUser: async (user_id: string) => {
         const user = await User.findById(user_id);
-        if(!user){
+        if (!user) {
             throw new Error("User is not exist!");
         }
         return user.lessons;
     },
-    GetProfileUSer :async(user_id : string)=>{
+    GetProfileUSer: async (user_id: string) => {
         const user = await User.findById(user_id);
-        if(!user){
+        if (!user) {
             throw new Error("User is not exist!");
         }
         return user;
+    },
+    DeleteLessonByUser: async (user_id: string, lesson_id: string) => {
+        const user = await User.findById(user_id);
+        if (!user) throw new Error("User does not exist!");
+        // console.log(lesson_id);
+        
+        const oldCount = user.lessons.length;
+
+        user.lessons = user.lessons.filter(
+            (l) => l._id.toString() !== lesson_id
+        );
+
+        if (user.lessons.length === oldCount) {
+            throw new Error("Lesson not found for this user!");
+        }
+
+        await user.save();
+
+        return user;
     }
+
 }

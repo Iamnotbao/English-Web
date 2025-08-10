@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createLesson, deleteLesson, editLesson, getAllLesson, getSingleLesson } from '../controller/lesson.controller';
 import authMiddleware from '../middleware/authMiddleware';
+import upload from '../middleware/upload';
 
 const router = Router();
 
@@ -8,7 +9,7 @@ const router = Router();
 //lesson
 router.get('/',getAllLesson);
 router.get('/:id',authMiddleware,getSingleLesson);
-router.post('/user/:user_id',authMiddleware,createLesson);
+router.post('/user/:user_id',authMiddleware,upload.single('image_url'),createLesson);
 router.put('/:user_id/:id',authMiddleware,editLesson);
 router.delete('/:id/',authMiddleware,deleteLesson);
 
