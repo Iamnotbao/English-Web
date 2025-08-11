@@ -8,11 +8,11 @@ export const PostService = {
         return await Post.create(postData);
     },
     getAllPost: async (page: number = 1, limit: number = 10) => {
-        const post = await Post.find().skip((page - 1) * limit).limit(limit).populate("author_id", "name");
+        const post = await Post.find().skip((page - 1) * limit).limit(limit).populate("author_id", "username avatar");
         return post;
     },
     getPostById: async (id: string) => {
-        const post = await Post.findById(id).populate("author_id", "name");
+        const post = await Post.findById(id).populate("author_id", "username avatar");
         if (post) {
             return post;
         }

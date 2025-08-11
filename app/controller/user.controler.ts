@@ -21,7 +21,23 @@ export const GetProfileUser = async (req:Request, res: Response)=>{
         })
     }
 }
+export const EditProfile = async(req:Request, res:Response)=>{
+    const user_id =req.params.user_id;
+    const update_profile = req.body;
+    console.log("update", update_profile);
+    
+    const result = await UserService.UpdateProfile(user_id,update_profile);
+    if(result){
+        return res.status(204).json({
+            message:"Successfully delete lesson",
+        })
+    }else{
+         return res.status(401).json({
+            message:"Update Failed!",
+        })
+    }
 
+}
 export const DeleteLessonByUser = async(req:Request, res: Response)=>{
     const user_id = req.params.user_id;
     const lesson_id = req.params.lesson_id;

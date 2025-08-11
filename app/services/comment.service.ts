@@ -6,12 +6,12 @@ export const CommentService = {
     AddComment: async (commentData: Partial<IComment>) => {
         const comment = await Comment.create(commentData);
         await Post.findByIdAndUpdate(commentData.post_id, {
-            $inc: { comment_count: 1 }
+            $push: { comments: comment._id }
         });
         return comment;
     },
     GetComment: async (post_id: string) => {
-        const comment = await Comment.find({ post_id }).populate("author_id", "name");
+        const comment = await Comment.find({ post_id }).populate("author_id", "username avatar");
         return comment;
     },
     GetAllComment: async () => {
