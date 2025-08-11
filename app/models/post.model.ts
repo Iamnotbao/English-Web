@@ -8,8 +8,9 @@ const postSchema = new Schema<IPost>({
     lesson_id: { type: Schema.Types.ObjectId, ref: "Lesson" },
     image_url: [{ type: String }],
     likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    comment_count: { type: Number, default: 0 },
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
     share_count: { type: Number, default: 0 },
+    votes:{type:Number,default:0},
     tags: [{
         type: String,
         enum: ["Grammar", "Speaking", "Vocabulary", "Listening"]

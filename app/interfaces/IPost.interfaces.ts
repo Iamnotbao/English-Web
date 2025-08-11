@@ -10,7 +10,7 @@ export interface IPost extends Document{
     image_url: string[];
     likes:Types.ObjectId[];
     lesson_id: Types.ObjectId;
-    comment_count : number;
+    comments : Types.ObjectId;
     share_count: number;
     votes:number;
     tags: string;
