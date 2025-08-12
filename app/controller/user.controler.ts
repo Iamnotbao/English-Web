@@ -1,50 +1,58 @@
 import { Request, Response } from "express"
 import { UserService } from "../services/user.service";
+import { uploadToCloudinary } from "../utils/cloudinary.utils";
 
-export const GetListByUser = async(req:Request, res: Response)=>{
+export const GetListByUser = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
-    const user_list =  await UserService.GetListByUser(user_id);
-    if(user_list){
+    const user_list = await UserService.GetListByUser(user_id);
+    if (user_list) {
         return res.status(200).json({
-            message:"Successfully get all list of user",
+            message: "Successfully get all list of user",
             user_list
         })
     }
 }
-export const GetProfileUser = async (req:Request, res: Response)=>{
+export const GetProfileUser = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     const user = await UserService.GetProfileUSer(user_id);
-    if(user){
+    if (user) {
         return res.status(200).json({
-            message:"Successfully get profile of user",
+            message: "Successfully get profile of user",
             user
         })
     }
 }
-export const EditProfile = async(req:Request, res:Response)=>{
-    const user_id =req.params.user_id;
-    const update_profile = req.body;
+export const EditProfile = async (req: Request, res: Response) => {
+    const user_id = req.params.user_id;
+    let update_profile = { ...req.body };
+      if (req.file) {
+        update_profile.avatar = req.file.path;
+    }
     console.log("update", update_profile);
-    
-    const result = await UserService.UpdateProfile(user_id,update_profile);
-    if(result){
+    const result = await UserService.UpdateProfile(user_id, update_profile);
+    if (result) {
         return res.status(204).json({
-            message:"Successfully delete lesson",
+            message: "Successfully Edit Profile",
         })
-    }else{
-         return res.status(401).json({
-            message:"Update Failed!",
+    } else {
+        return res.status(401).json({
+            message: "Update Failed!",
         })
     }
 
-}
-export const DeleteLessonByUser = async(req:Request, res: Response)=>{
+};
+
+
+
+
+
+export const DeleteLessonByUser = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     const lesson_id = req.params.lesson_id;
-    const result= await UserService.DeleteLessonByUser(user_id,lesson_id);
-    if(result){
+    const result = await UserService.DeleteLessonByUser(user_id, lesson_id);
+    if (result) {
         return res.status(204).json({
-            message:"Successfully delete lesson",
+            message: "Successfully delete lesson",
         })
     }
 }
