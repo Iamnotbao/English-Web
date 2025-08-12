@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const db_1 = __importDefault(require("../config/db"));
+const db_1 = __importDefault(require("./config/db"));
 const path_1 = __importDefault(require("path"));
 const auth_route_1 = __importDefault(require("./routers/auth.route"));
 const lesson_route_1 = __importDefault(require("./routers/lesson.route"));

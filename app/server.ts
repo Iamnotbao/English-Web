@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from '../config/db';
+import connectDB from './config/db';
 import path from 'path';
 import authRoutes from './routers/auth.route';
 import lessonRoutes from './routers/lesson.route'
