@@ -26,7 +26,8 @@ export const EditProfile = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     let update_profile = { ...req.body };
       if (req.file) {
-        update_profile.avatar = req.file.path;
+        const imageUrl = await uploadToCloudinary(req.file.buffer);
+        update_profile.avatar = imageUrl;
     }
     console.log("update", update_profile);
     const result = await UserService.UpdateProfile(user_id, update_profile);
@@ -41,11 +42,6 @@ export const EditProfile = async (req: Request, res: Response) => {
     }
 
 };
-
-
-
-
-
 export const DeleteLessonByUser = async (req: Request, res: Response) => {
     const user_id = req.params.user_id;
     const lesson_id = req.params.lesson_id;
