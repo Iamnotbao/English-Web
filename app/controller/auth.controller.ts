@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import authService from "../services/auth.service";
-import { access } from "fs";
 
 export const SignIn = async (req: Request, res: Response) => {
     try {
@@ -10,6 +9,7 @@ export const SignIn = async (req: Request, res: Response) => {
             _id: user.user._id,
             username: user.user.username,
             email: user.user.email,
+            avatar:user.user.avatar,
             access_token: user.access_token,
             refresh_token: user.refresh_token
         });
