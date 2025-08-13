@@ -7,7 +7,7 @@ dotenv.config();
 
 const authService = {
     generateAccessToken: (data: Object) => {
-        const access_token = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '30m' });
+        const access_token = jwt.sign(data, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '120m' });
         return access_token;
     },
     generateRefreshToken: (data: Object) => {
